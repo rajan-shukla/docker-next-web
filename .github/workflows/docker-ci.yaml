@@ -1,0 +1,25 @@
+name: CI Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Build the Docker image
+      run: docker build -t lalitha235/docker-next-web:latest
+
+    - name: Push image to docker hub
+      run: |
+           docker login -u lalitha235 -p ${{ secrets.DOCKER_USERNAME }}
+           docker push lalitha235/docker-next-web:latest
