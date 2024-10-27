@@ -1,15 +1,14 @@
 pipeline {
    agent any
    environment {
-       DOCKER_HUB_REPO = 'ramkumarmax12/quiz-app'
-       DOCKER_HUB_CREDENTIALS_ID = 'dockerhub' // Add Docker credentials in Jenkins
+       DOCKER_HUB_REPO = 'rajan715/two-flask-app'
+       DOCKER_HUB_CREDENTIALS_ID = 'two-flask-app' // Add Docker credentials in Jenkins
    }
    stages {
        stage('Clone Repository') {
            steps {
                // Clone the repository
-               git branch: 'master', url: '
-https://github.com/Ramkumar-max-12/quiz-app.git'
+               git branch: 'master', url: 'https://github.com/rajan-shukla/docker-next-web'
            }
        }
        stage('Build Docker Image') {
@@ -34,7 +33,7 @@ https://github.com/Ramkumar-max-12/quiz-app.git'
            steps {
                script {
                    // Run the app as a container and expose it on port 8080
-                   bat "docker run --rm -d -p 9090:3000 ${DOCKER_HUB_REPO}:${env.BUILD_ID}"
+                   bat "docker run --rm -d -p 9090:80 ${DOCKER_HUB_REPO}:${env.BUILD_ID}"
                }
            }
        }
